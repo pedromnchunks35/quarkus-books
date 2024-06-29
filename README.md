@@ -1,83 +1,69 @@
-# code-with-quarkus
-
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
-
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-
-```shell script
-./mvnw compile quarkus:dev
+# INFO
+- Sample project for testing quarkus functions and also to check out dependency injection
+# Requirements 
+1. Quarkus Framework: Use Quarkus for building the application.
+2. Dependency Injection: Utilize CDI (Contexts and Dependency Injection) in Quarkus to manage beans.
+3. Persistence: Use Panache with Hibernate ORM for data access.
+4. REST Endpoints: Expose REST endpoints to manage books and authors.
+5. Testing: Write unit and integration tests.
+# Detailed
+- For the Library Management System project, the following functionalities should be implemented to ensure a comprehensive and practical demonstration of dependency injection, RESTful APIs, and database interactions using Quarkus.
+# Core Functionalities 
+### Manage Authors
+- Create Author: Add a new author to the library.
+- Get All Authors: Retrieve a list of all authors.
+- Get Author by ID: Retrieve details of a specific author by their ID.
+- Update Author: Update the details of an existing author.
+- Delete Author: Remove an author from the library.
+- Manage Books
+### Manage Books
+- Create Book: Add a new book to the library, associating it with an author.
+- Get All Books: Retrieve a list of all books.
+- Get Book by ID: Retrieve details of a specific book by its ID.
+- Update Book: Update the details of an existing book.
+- Delete Book: Remove a book from the library.
+# Additional Features
+- Validation: Ensure proper validation for request bodies using annotations like @NotNull, @Size, etc.
+- Error Handling: Implement global exception handling to return meaningful error messages.
+- Pagination: For GET /authors and GET /books endpoints, implement pagination to handle large datasets.
+- Sorting and Filtering: Allow sorting and filtering of authors and books based on different criteria (e.g., name, title).
+# Dependencies
+- JDBC Driver: PostgreSQL JDBC Driver.
+- Hibernate ORM: For ORM capabilities with Panache.
+- RESTEasy JAX-RS: For building RESTful web services.
+- Quarkus Panache: Simplified ORM with Hibernate.
+- Quarkus Arc: For dependency injection.
+- Quarkus SmallRye OpenAPI: For API documentation.
+- Quarkus JUnit5: For testing.
+- Quarkus RESTEasy JSON-B: For JSON processing.
+# Representation
+![Kubernetes representation](./assets/Kubernetes-cluster.png)
+# Configs for the application.properties
 ```
+# DataSource configuration
+quarkus.datasource.db-kind=postgresql
+quarkus.datasource.username=your_db_username
+quarkus.datasource.password=your_db_password
+quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/your_db_name
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+# Hibernate ORM configuration
+quarkus.hibernate-orm.database.generation=update
 
-## Packaging and running the application
+# Enable OpenAPI and Swagger UI
+quarkus.swagger-ui.always-include=true
+quarkus.smallrye-openapi.path=/openapi
 
-The application can be packaged using:
-
-```shell script
-./mvnw package
+# Remote Development configs
+quarkus.http.host=0.0.0.0
+quarkus.live-reload.password=12341234
+quarkus.live-reload.url=http://172.24.166.62:30000
+quarkus.profile=dev
 ```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/code-with-quarkus-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST resources for Hibernate ORM with Panache ([guide](https://quarkus.io/guides/rest-data-panache)): Generate Jakarta REST resources for your Hibernate Panache entities and repositories
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- RESTEasy Classic JSON-B ([guide](https://quarkus.io/guides/rest-json)): JSON-B serialization support for RESTEasy Classic
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### REST Data with Panache
-
-Generating Jakarta REST resources with Panache
-
-[Related guide section...](https://quarkus.io/guides/rest-data-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+# Hot reload configs
+- We should run the app in mvn `quarkus:remote-dev`
+- We should pass the environment variable for making it run in dev mode
+  ```
+  - name: QUARKUS_LAUNCH_DEVMODE 
+    value: "true"
+  ```
+- Also we should firstly use mvn package to create a maven run file so we can use that jar to run our app.. The yaml file for the kubernetes will be in [here](./kubernetes-config/)
