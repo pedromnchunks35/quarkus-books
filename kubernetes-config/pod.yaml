@@ -24,7 +24,22 @@ spec:
           volumeMounts:
             - name: quarkus-volume
               mountPath: "/app"
+        - name: postgres-container
+          image: postgres:latest
+          volumeMounts:
+            - name: postgres-volume
+              mountPath: "/var/lib/postgresql/data"
+          env:
+            - name: POSTGRES_USER
+              value: "admin"
+            - name: POSTGRES_PASSWORD
+              value: "12341234"
+            - name: POSTGRES_DB
+              value: "books"
       volumes:
         - name: quarkus-volume
           hostPath:
             path: /mnt/c/Users/psousaesilva/Documents/quarkus-books/code-with-quarkus/target
+        - name: postgres-volume
+          hostPath:
+            path: /mnt/c/Users/psousaesilva/Documents/quarkus-books/code-with-quarkus/bd
