@@ -14,16 +14,6 @@ spec:
         service: quarkus
     spec:
       containers:
-        - name: quarkus-container
-          image: openjdk:17
-          env:
-            - name: QUARKUS_LAUNCH_DEVMODE
-              value: "true"
-          command:
-            ["/bin/sh", "-c", "java -jar /app/quarkus-app/quarkus-run.jar"]
-          volumeMounts:
-            - name: quarkus-volume
-              mountPath: "/app"
         - name: postgres-container
           image: postgres:latest
           volumeMounts:
@@ -37,9 +27,6 @@ spec:
             - name: POSTGRES_DB
               value: "books"
       volumes:
-        - name: quarkus-volume
-          hostPath:
-            path: /mnt/c/Users/psousaesilva/Documents/quarkus-books/code-with-quarkus/target
         - name: postgres-volume
           hostPath:
-            path: /mnt/c/Users/psousaesilva/Documents/quarkus-books/code-with-quarkus/bd
+            path: /mnt/c/Users/psousaesilva/Documents/quarkus-books/bd

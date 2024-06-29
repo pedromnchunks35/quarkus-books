@@ -30,7 +30,7 @@
 # Dependencies
 - JDBC Driver: PostgreSQL JDBC Driver.
 - Hibernate ORM: For ORM capabilities with Panache.
-- RESTEasy JAX-RS: For building RESTful web services.
+- RESTEasy quarkus: For building RESTful web services.
 - Quarkus Panache: Simplified ORM with Hibernate.
 - Quarkus Arc: For dependency injection.
 - Quarkus SmallRye OpenAPI: For API documentation.
@@ -61,10 +61,19 @@ quarkus.live-reload.url=http://172.24.166.62:30000
 quarkus.profile=dev
 ```
 # Hot reload configs
-- We should run the app in mvn `quarkus:remote-dev`
+- We should run the app in `mvn quarkus:remote-dev`
 - We should pass the environment variable for making it run in dev mode
   ```
   - name: QUARKUS_LAUNCH_DEVMODE 
     value: "true"
   ```
 - Also we should firstly use mvn package to create a maven run file so we can use that jar to run our app.. The yaml file for the kubernetes will be in [here](./kubernetes-config/)
+# Making the mvn package
+- Since the postgresql is supposed to run inside of the container.. we can either skip the tests in package or package normal and make a ip forwarding `kubectl port-forward quarkus-app-5d84995df7-4jssb 5432:5432`
+- Of course that if we go with the ip forwarding option we must change the lifeCycle hook of the quarkus container inside of the pod for not trying to run the app because the file that runs it its not created without the mvn package which would result in a error. Change that hook for sleep 20000 just to package and after package make it back
+# DTO (Data Transfer Object) Vs Entity
+- This is simply to differ the logic between a entity which is database logic and the data returned in the api
+- DTO is logic that we can use in the return of objects
+  - Ex: Not returning the id
+- Entity is logic for the DB
+  - Ex: Having the id
