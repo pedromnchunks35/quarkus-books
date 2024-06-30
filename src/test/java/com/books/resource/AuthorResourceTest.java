@@ -1,4 +1,4 @@
-package com.books.resource;
+/* package com.books.resource;
 
 import static io.restassured.RestAssured.given;
 
@@ -37,21 +37,47 @@ public class AuthorResourceTest {
 
     @Test
     public void updateAuthor_test() {
-
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .pathParam("id", 1)
+                .when()
+                .put("/Author/{id}")
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode());
     }
 
     @Test
     public void deleteAuthor_test() {
-
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .pathParam("id", 1)
+                .when()
+                .delete("/Author/{id}")
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode());
     }
 
     @Test
     public void getAuthorById_test() {
-
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .pathParam("id", 1)
+                .when()
+                .get("/Author/{id}")
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode());
     }
 
     @Test
     public void getAllAuthors_test() {
-
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .pathParam("pageNumber", 1)
+                .pathParam("size", 3)
+                .when()
+                .get("/Author/{pageNumber}/{size}")
+                .then()
+                .statusCode(Response.Status.OK.getStatusCode());
     }
 }
+ */

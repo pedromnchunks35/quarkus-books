@@ -36,6 +36,10 @@
 - Quarkus SmallRye OpenAPI: For API documentation.
 - Quarkus JUnit5: For testing.
 - Quarkus RESTEasy JSON-B: For JSON processing.
+- Mockito: for mocking
+- Mapstruct: to map from a DTO to a entity
+- Lombok: To create the getters, the setters and the constructors
+- jakarta.enterprise.cdi-api: For annotations
 # Representation
 ![Kubernetes representation](./assets/Kubernetes-cluster.png)
 # Configs for the application.properties
